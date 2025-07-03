@@ -1,31 +1,23 @@
-const box1 = document.querySelector(".box-1")
-const box2 = document.querySelector(".box-2")
-const box3 = document.querySelector(".box-3")
+const boxes = document.querySelectorAll(".box")
 let turn = "X";
+let movesArr = [];
 
-box1.addEventListener("click", function () {
-    box1.innerHTML = turn;
-    if (turn === "X") {
-        turn = "O";
-    } else {
-        turn = "X";
-    }
-})
+for (let i = 0; i < boxes.length; i++) {
+    boxes[i].addEventListener("click", function () {
+        boxes[i].innerHTML = turn
+        movesArr[i] = turn;
 
-box2.addEventListener("click", function () {
-    box2.innerHTML = turn;
-    if (turn === "X") {
-        turn = "O";
-    } else {
-        turn = "X";
-    }
-})
+        if (movesArr[0] === movesArr[1] && movesArr[1] === movesArr[2]) {
+            console.log(turn + " is winner.");
+        } else if (movesArr[3] === movesArr[4] && movesArr[4] === movesArr[5]) {
+            console.log(turn + " is winner.");
+        }
 
-box3.addEventListener("click", function () {
-    box3.innerHTML = turn;
-    if (turn === "X") {
-        turn = "O";
-    } else {
-        turn = "X";
-    }
-})
+        if (turn === "X") {
+            turn = "O"
+        } else {
+            turn = "X"
+        }
+
+    })
+}
