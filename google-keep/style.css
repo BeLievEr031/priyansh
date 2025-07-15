@@ -78,8 +78,9 @@ body {
 }
 
 .main-content {
-  flex-grow: 1;
+  /* flex-grow: 1; */
   padding: 20px;
+  width: calc(100vw - 250px);
 }
 
 .note-box {
@@ -101,4 +102,29 @@ body {
 
 .make-smaller-sidebar {
   width: 100px;
+}
+
+.input-cont {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.note-box {
+  outline: none;
+  width: 500px;
+  margin: auto;
+  border: 1px solid black;
+}
+
+.tasks-cont {
+  display: flex;
+  gap: 5px;
+  padding-top: 10px;
+}
+
+.task {
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 5px;
 }

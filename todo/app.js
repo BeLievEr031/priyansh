@@ -24,3 +24,11 @@ addBtn.addEventListener("click", function () {
         taskDiv.remove()
     })
 })
+
+
+const noteInput = document.querySelector(".note-box")
+
+input.addEventListener("keypress", function () {
+    console.log("i am pressed.");
+
+})

@@ -41,3 +41,10 @@ input {
 button {
   padding: 10px 15px;
 }
+
+.note-box {
+  outline: none;
+  width: 250px;
+  margin: auto;
+  background-color: red;
+}
