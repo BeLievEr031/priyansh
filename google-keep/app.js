@@ -34,6 +34,27 @@ noteInput.addEventListener("keydown", function (e) {
         const div = document.createElement("div")
         div.innerHTML = noteInput.value
         div.classList.add("task")
+
+        const iconCont = document.createElement("div")
+        iconCont.classList.add("icon-cont")
+
+        const bin = document.createElement("span")
+        bin.classList.add("material-symbols-outlined")
+        // bin.classList.add("task-icon")
+        bin.style.cursor = "pointer"
+        bin.innerHTML = "delete"
+
+        const archive = document.createElement("span")
+        archive.classList.add("material-symbols-outlined")
+        // archive.classList.add("task-icon")
+        archive.style.cursor = "pointer"
+        archive.innerHTML = "archive"
+
+        iconCont.append(bin)
+        iconCont.append(archive)
+
+        div.append(iconCont)
+
         taskCont.append(div)
 
         noteInput.value = ""
