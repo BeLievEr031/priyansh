@@ -27,6 +27,8 @@ menuBtn.addEventListener("click", function () {
 const noteInput = document.querySelector(".note-box")
 const taskCont = document.querySelector(".tasks-cont")
 
+const taskArr = [];
+
 noteInput.addEventListener("keydown", function (e) {
 
 
@@ -57,6 +59,22 @@ noteInput.addEventListener("keydown", function (e) {
 
         taskCont.append(div)
 
+        const obj = {
+            task: noteInput.value,
+            isNote: true,
+            isBin: false,
+            isArchive: false,
+            bgColor: "transparent"
+        }
+
+        taskArr.push(obj)
         noteInput.value = ""
     }
 })
+
+
+// Write code for displaying bin tasks.
+
+
+
+// Write code for displaying archive tasks.
