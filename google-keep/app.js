@@ -69,6 +69,7 @@ noteInput.addEventListener("keydown", function (e) {
 
         taskArr.push(obj)
         noteInput.value = ""
+        noteInput.value = ""
     }
 })
 
