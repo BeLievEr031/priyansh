@@ -1,6 +1,8 @@
 const labels = document.querySelectorAll(".label")
 const menuBtn = document.querySelector("#menu")
 const sidebar = document.querySelector(".sidebar")
+const taskCont = document.querySelector(".tasks-cont")
+
 let flag = false;
 
 menuBtn.addEventListener("click", function () {
@@ -23,9 +25,31 @@ menuBtn.addEventListener("click", function () {
     flag = !flag;
 })
 
+// Managing menu item bg-color
+const menuItems = document.querySelectorAll(".menu-item")
+let prevElem = menuItems[0]
+
+for (let i = 0; i < menuItems.length; i++) {
+    menuItems[i].addEventListener("click", function () {
+        prevElem.classList.remove("active")
+        menuItems[i].classList.add("active")
+        prevElem = menuItems[i]
+
+        console.log(menuItems[i].innerText.includes("tes"));
+
+
+        if (menuItems[i].innerText.includes("Notes")) {
+            taskCont.innerHTML = "I am a task tab."
+        } else if (menuItems[i].innerText.includes("Archive")) {
+            taskCont.innerHTML = "I am a archive tab."
+        } else if (menuItems[i].innerText.includes("Bin")) {
+            taskCont.innerHTML = "I am a Bin tab."
+        }
+    })
+}
+
 
 const noteInput = document.querySelector(".note-box")
-const taskCont = document.querySelector(".tasks-cont")
 
 const taskArr = [];
 
@@ -72,6 +96,7 @@ noteInput.addEventListener("keydown", function (e) {
         noteInput.value = ""
     }
 })
+
 
 
 // Write code for displaying bin tasks.
