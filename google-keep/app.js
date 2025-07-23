@@ -35,15 +35,13 @@ for (let i = 0; i < menuItems.length; i++) {
         menuItems[i].classList.add("active")
         prevElem = menuItems[i]
 
-        console.log(menuItems[i].innerText.includes("tes"));
-
-
         if (menuItems[i].innerText.includes("Notes")) {
             taskCont.innerHTML = "I am a task tab."
         } else if (menuItems[i].innerText.includes("Archive")) {
             taskCont.innerHTML = "I am a archive tab."
         } else if (menuItems[i].innerText.includes("Bin")) {
-            taskCont.innerHTML = "I am a Bin tab."
+            taskCont.innerHTML = ""
+            showBinTask();
         }
     })
 }
@@ -52,7 +50,7 @@ for (let i = 0; i < menuItems.length; i++) {
 const noteInput = document.querySelector(".note-box")
 
 const taskArr = [];
-
+let idx = 0;
 noteInput.addEventListener("keydown", function (e) {
 
 
@@ -66,13 +64,12 @@ noteInput.addEventListener("keydown", function (e) {
 
         const bin = document.createElement("span")
         bin.classList.add("material-symbols-outlined")
-        // bin.classList.add("task-icon")
         bin.style.cursor = "pointer"
         bin.innerHTML = "delete"
+        bin.setAttribute("idx", idx)
 
         const archive = document.createElement("span")
         archive.classList.add("material-symbols-outlined")
-        // archive.classList.add("task-icon")
         archive.style.cursor = "pointer"
         archive.innerHTML = "archive"
 
@@ -92,15 +89,43 @@ noteInput.addEventListener("keydown", function (e) {
         }
 
         taskArr.push(obj)
+
         noteInput.value = ""
         noteInput.value = ""
+        idx = idx + 1;
+
+        bin.addEventListener("click", function () {
+            const idx = bin.getAttribute("idx")
+
+            console.log(taskArr[+idx]);
+
+            taskArr[Number(idx)].isBin = true;
+            taskArr[Number(idx)].isArchive = false;
+            taskArr[Number(idx)].isNote = false;
+
+
+            console.log(taskArr[+idx]);
+
+            div.remove();
+
+
+        })
     }
 })
 
 
 
 // Write code for displaying bin tasks.
-
+function showBinTask() {
+    for (let i = 0; i < taskArr.length; i++) {
+        if (taskArr[i].isBin === true) {
+            const div = document.createElement("div")
+            div.innerHTML = taskArr[i].task
+            div.classList.add("task")
+            taskCont.append(div)
+        }
+    }
+}
 
 
 // Write code for displaying archive tasks.
