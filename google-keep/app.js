@@ -36,7 +36,7 @@ for (let i = 0; i < menuItems.length; i++) {
         prevElem = menuItems[i]
 
         if (menuItems[i].innerText.includes("Notes")) {
-            taskCont.innerHTML = "I am a task tab."
+            showNotesTask();
         } else if (menuItems[i].innerText.includes("Archive")) {
             taskCont.innerHTML = "I am a archive tab."
         } else if (menuItems[i].innerText.includes("Bin")) {
@@ -52,7 +52,6 @@ const noteInput = document.querySelector(".note-box")
 const taskArr = [];
 let idx = 0;
 noteInput.addEventListener("keydown", function (e) {
-
 
     if (e.key === "Enter") {
         const div = document.createElement("div")
@@ -113,6 +112,56 @@ noteInput.addEventListener("keydown", function (e) {
     }
 })
 
+// Code for displaying Notes
+
+function showNotesTask() {
+    taskCont.innerHTML = "";
+    for (let i = 0; i < taskArr.length; i++) {
+        if (taskArr[i].isNote === true) {
+            const div = document.createElement("div")
+            div.innerHTML = taskArr[i].task
+            div.classList.add("task")
+
+            const iconCont = document.createElement("div")
+            iconCont.classList.add("icon-cont")
+
+            const bin = document.createElement("span")
+            bin.classList.add("material-symbols-outlined")
+            bin.style.cursor = "pointer"
+            bin.innerHTML = "delete"
+            bin.setAttribute("idx", i)
+
+            const archive = document.createElement("span")
+            archive.classList.add("material-symbols-outlined")
+            archive.style.cursor = "pointer"
+            archive.innerHTML = "archive"
+
+            iconCont.append(bin)
+            iconCont.append(archive)
+
+            div.append(iconCont)
+
+            taskCont.append(div)
+
+            bin.addEventListener("click", function () {
+                const idx = bin.getAttribute("idx")
+
+                console.log(taskArr[+idx]);
+
+                taskArr[Number(idx)].isBin = true;
+                taskArr[Number(idx)].isArchive = false;
+                taskArr[Number(idx)].isNote = false;
+
+
+                console.log(taskArr[+idx]);
+
+                div.remove();
+
+
+            })
+        }
+    }
+}
 
 
 // Write code for displaying bin tasks.
@@ -123,6 +172,8 @@ function showBinTask() {
             div.innerHTML = taskArr[i].task
             div.classList.add("task")
             taskCont.append(div)
+
+            // unarchive
         }
     }
 }
