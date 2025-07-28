@@ -152,12 +152,7 @@ function showNotesTask() {
                 taskArr[Number(idx)].isArchive = false;
                 taskArr[Number(idx)].isNote = false;
 
-
-                console.log(taskArr[+idx]);
-
                 div.remove();
-
-
             })
         }
     }
@@ -171,9 +166,31 @@ function showBinTask() {
             const div = document.createElement("div")
             div.innerHTML = taskArr[i].task
             div.classList.add("task")
-            taskCont.append(div)
 
             // unarchive
+            //<span class="material-symbols-outlined">
+            // restore_from_trash
+            // </span>
+
+            const restore = document.createElement("span")
+            restore.classList.add("material-symbols-outlined")
+            restore.style.cursor = "pointer"
+            restore.innerHTML = "restore_from_trash"
+            restore.setAttribute("idx", i)
+
+            div.append(restore)
+            taskCont.append(div)
+
+            restore.addEventListener("click", function () {
+
+                taskArr[i].isNote = true
+                taskArr[i].isBin = false
+                taskArr[i].isArchive = false
+
+                console.log(taskArr[i]);
+
+                div.remove();
+            })
         }
     }
 }
