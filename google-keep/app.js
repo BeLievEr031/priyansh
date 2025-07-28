@@ -96,14 +96,9 @@ noteInput.addEventListener("keydown", function (e) {
         bin.addEventListener("click", function () {
             const idx = bin.getAttribute("idx")
 
-            console.log(taskArr[+idx]);
-
             taskArr[Number(idx)].isBin = true;
             taskArr[Number(idx)].isArchive = false;
             taskArr[Number(idx)].isNote = false;
-
-
-            console.log(taskArr[+idx]);
 
             div.remove();
 
@@ -146,8 +141,6 @@ function showNotesTask() {
             bin.addEventListener("click", function () {
                 const idx = bin.getAttribute("idx")
 
-                console.log(taskArr[+idx]);
-
                 taskArr[Number(idx)].isBin = true;
                 taskArr[Number(idx)].isArchive = false;
                 taskArr[Number(idx)].isNote = false;
@@ -167,10 +160,6 @@ function showBinTask() {
             div.innerHTML = taskArr[i].task
             div.classList.add("task")
 
-            // unarchive
-            //<span class="material-symbols-outlined">
-            // restore_from_trash
-            // </span>
 
             const restore = document.createElement("span")
             restore.classList.add("material-symbols-outlined")
@@ -186,8 +175,6 @@ function showBinTask() {
                 taskArr[i].isNote = true
                 taskArr[i].isBin = false
                 taskArr[i].isArchive = false
-
-                console.log(taskArr[i]);
 
                 div.remove();
             })
