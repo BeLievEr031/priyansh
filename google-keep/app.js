@@ -184,3 +184,5 @@ function showBinTask() {
 
 
 // Write code for displaying archive tasks.
+
+// localstorage
