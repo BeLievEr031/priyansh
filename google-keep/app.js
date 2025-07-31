@@ -49,7 +49,7 @@ for (let i = 0; i < menuItems.length; i++) {
 
 const noteInput = document.querySelector(".note-box")
 
-const taskArr = [];
+let taskArr = [];
 let idx = 0;
 noteInput.addEventListener("keydown", function (e) {
 
@@ -93,12 +93,16 @@ noteInput.addEventListener("keydown", function (e) {
         noteInput.value = ""
         idx = idx + 1;
 
+        localStorage.setItem("tasks", JSON.stringify(taskArr))
+
         bin.addEventListener("click", function () {
             const idx = bin.getAttribute("idx")
 
             taskArr[Number(idx)].isBin = true;
             taskArr[Number(idx)].isArchive = false;
             taskArr[Number(idx)].isNote = false;
+
+            localStorage.setItem("tasks", JSON.stringify(taskArr))
 
             div.remove();
 
@@ -183,6 +187,16 @@ function showBinTask() {
 }
 
 
-// Write code for displaying archive tasks.
+// code for displaying the localstorage data
 
-// localstorage
+function loadFromLocalStorage() {
+    const tasks = localStorage.getItem("tasks")
+    console.log(tasks);
+
+    if (tasks) {
+        taskArr = JSON.parse(tasks)
+        showNotesTask()
+    }
+}
+
+loadFromLocalStorage()
