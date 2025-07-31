@@ -191,8 +191,6 @@ function showBinTask() {
 
 function loadFromLocalStorage() {
     const tasks = localStorage.getItem("tasks")
-    console.log(tasks);
-
     if (tasks) {
         taskArr = JSON.parse(tasks)
         showNotesTask()
