@@ -1,58 +1,17 @@
-const rectBtn = document.querySelector("#rect")
-const circleBtn = document.querySelector("#circle")
-const triangleBtn = document.querySelector("#triangle")
-const deleteBtn = document.querySelector("#delete")
 const canvasElem = document.querySelector("canvas")
 
-
 const canvas = new fabric.Canvas(canvasElem, {
-    width: 800,
-    height: 500
+    width: window.innerWidth,
+    height: window.innerHeight
 })
 
-rectBtn.addEventListener("click", function () {
+const iconsBtn = document.querySelectorAll(".floating-div *")
+let prevSelectedElem = iconsBtn[0]
 
-    const rect = new fabric.Rect({
-        left: 50,
-        top: 50,
-        stroke: "black",
-        width: 50,
-        height: 50,
-        fill: "transparent"
+for (let i = 0; i < iconsBtn.length; i++) {
+    iconsBtn[i].addEventListener("click", function () {
+        prevSelectedElem.classList.remove("active")
+        iconsBtn[i].classList.add("active")
+        prevSelectedElem = iconsBtn[i]
     })
-
-    canvas.add(rect)
-
-})
-
-
-circleBtn.addEventListener("click", function () {
-    const circle = new fabric.Circle({
-        left: 75,
-        top: 75,
-        radius: 35,
-        fill: "transparent",
-        stroke: "green"
-    })
-
-    canvas.add(circle)
-})
-
-triangleBtn.addEventListener("click", function () {
-    const triangle = new fabric.Triangle({
-        left: 100,
-        top: 100,
-        width: 100,
-        height: 50,
-        fill: "transparent",
-        stroke: "red",
-        strokeWidth: 5
-    })
-
-    canvas.add(triangle)
-})
-
-deleteBtn.addEventListener("click", function () {
-    const selectedShape = canvas.getActiveObject()
-    canvas.remove(selectedShape)
-})
+}
