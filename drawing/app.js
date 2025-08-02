@@ -3,6 +3,7 @@ const canvasElem = document.querySelector("canvas")
 const canvas = new fabric.Canvas(canvasElem, {
     width: window.innerWidth,
     height: window.innerHeight,
+    backgroundColor: "black"
 })
 
 // has to fix
@@ -32,9 +33,9 @@ canvas.on("mouse:down", function () {
     const rect = new fabric.Rect({
         top: y1,
         left: x1,
-        width: 10,
-        height: 10,
-        stroke: "black",
+        width: 100,
+        height: 100,
+        stroke: "white",
     })
 
     canvas.add(rect)
