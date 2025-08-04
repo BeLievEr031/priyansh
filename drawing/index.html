@@ -24,6 +24,7 @@
 
       canvas {
         /* background-color: #121212; */
+        user-select: none;
       }
 
       .floating-div {
@@ -58,11 +59,17 @@
     <div class="floating-div">
       <span class="material-symbols-outlined active"> back_hand </span>
       <span class="material-symbols-outlined"> arrow_selector_tool </span>
-      <span class="material-symbols-outlined"> square </span>
-      <span class="material-symbols-outlined"> change_history </span>
-      <span class="material-symbols-outlined"> circle </span>
-      <span class="material-symbols-outlined"> horizontal_rule </span>
-      <span class="material-symbols-outlined"> stylus_note </span>
+      <span class="material-symbols-outlined" shape="rectangle" id="square">
+        square
+      </span>
+      <span class="material-symbols-outlined" shape="triangle">
+        change_history
+      </span>
+      <span class="material-symbols-outlined" shape="circle"> circle </span>
+      <span class="material-symbols-outlined" shape="line">
+        horizontal_rule
+      </span>
+      <span class="material-symbols-outlined" shape="pen"> stylus_note </span>
     </div>
 
     <canvas></canvas>
