@@ -13,8 +13,8 @@ const iconsBtn = document.querySelectorAll(".floating-div *")
 let prevSelectedElem = iconsBtn[0]
 let isDrawing = false;
 let isActive = false;
-
-const shapeArr = ["square", "rectangle", "circle", "line"]
+let shapeType = "";
+const shapeArr = ["rectangle", "triangle", "circle", "line"]
 
 for (let i = 0; i < iconsBtn.length; i++) {
     iconsBtn[i].addEventListener("click", function () {
@@ -22,8 +22,7 @@ for (let i = 0; i < iconsBtn.length; i++) {
         iconsBtn[i].classList.add("active");
 
         const shape = iconsBtn[i].getAttribute("shape");
-        console.log(shape);
-
+        shapeType = shape;
         // Reset any current selection
         canvas.discardActiveObject();
 
@@ -42,6 +41,8 @@ for (let i = 0; i < iconsBtn.length; i++) {
         } else {
             isActive = false;
             canvas.selection = true;
+
+            canvas.defaultCursor = "default"
 
             // ✅ Restore full object interactivity
             canvas.getObjects().forEach(obj => {
@@ -71,23 +72,10 @@ canvas.on("mouse:down", function () {
     if (!isActive) return;
     isDrawing = true;
 
-    const pos = canvas.getPointer()
-    x1 = pos.x
-    y1 = pos.y
-
-    shape = new fabric.Rect({
-        top: y1,
-        left: x1,
-        width: 1,
-        height: 1,
-        stroke: "white",
-    })
-
-    canvas.add(shape)
+    drawShape(shapeType);
 })
 
 canvas.on("mouse:move", function (o) {
-    // console.log(canvas.getPointer());
     if (!shape || !isDrawing) return;
 
     const pointer = canvas.getPointer(o.e);
@@ -109,3 +97,45 @@ canvas.on("mouse:up", function () {
     shape = null;
 })
 
+
+function drawShape(shapeType) {
+    console.log(shapeType);
+
+    if (shapeType === "rectangle") {
+        const pos = canvas.getPointer()
+        x1 = pos.x
+        y1 = pos.y
+        shape = new fabric.Rect({
+            top: y1,
+            left: x1,
+            width: 1,
+            height: 1,
+            stroke: "white",
+            fill: "transparent",
+            cornerStyle: 'circle',
+            cornerColor: 'green',
+            cornerSize: 12,
+            hasRotatingPoint: false
+        })
+
+    } else if (shapeType === "triangle") {
+        const pos = canvas.getPointer()
+        x1 = pos.x
+        y1 = pos.y
+        shape = new fabric.Triangle({
+            top: y1,
+            left: x1,
+            width: 1,
+            height: 1,
+            stroke: "white",
+            fill: "transparent",
+            cornerStyle: 'circle',
+            cornerColor: 'green',
+            cornerSize: 12,
+            hasRotatingPoint: false
+        })
+    }
+
+
+    canvas.add(shape)
+}
