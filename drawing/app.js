@@ -17,17 +17,12 @@ for (let i = 0; i < iconsBtn.length; i++) {
 
         const shape = iconsBtn[i].getAttribute("shape")
         console.log(shape);
+        canvas.discardActiveObject();
 
         if (shape === "rectangle") {
-            // canvas.selection = false;
             // rectangle draw mode open
             active = true;
-            // canvas.selection = false;
-
-            canvas.getObjects().forEach(obj => {
-                obj.selectable = false;
-                obj.evented = false;
-            });
+            canvas.selection = false;
         }
 
         prevSelectedElem = iconsBtn[i];
@@ -38,10 +33,10 @@ let startX = 0;
 let startY = 0;
 let currShape = null;
 
-canvas.on("mouse:down", function () {
+canvas.on("mouse:down", function (o) {
     if (active === false) return;
 
-    const pointer = canvas.getPointer();
+    const pointer = canvas.getPointer(o.e);
     startX = pointer.x;
     startY = pointer.y;
 
@@ -57,10 +52,10 @@ canvas.on("mouse:down", function () {
     canvas.add(currShape)
 })
 
-canvas.on("mouse:move", function () {
+canvas.on("mouse:move", function (o) {
     if (currShape === null) return;
 
-    const pointer = canvas.getPointer();
+    const pointer = canvas.getPointer(o.e);
     const x2 = pointer.x;
     const y2 = pointer.y;
 
@@ -68,12 +63,13 @@ canvas.on("mouse:move", function () {
     const newHeight = y2 - startY;
 
     currShape.set({
-        left: startX > x2 ? x2 : startX,
-        top: startY > y2 ? y2 : startY,
+        left: newWidth < 0 ? x2 : startX,
+        top: newHeight < 0 ? y2 : startY,
         width: Math.abs(newWidth),
         height: Math.abs(newHeight)
     })
 
+    canvas.renderAll();
 })
 
 canvas.on("mouse:up", function () {
