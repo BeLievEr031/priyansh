@@ -82,12 +82,25 @@ canvas.on("mouse:move", function (o) {
     const width = pointer.x - x1;
     const height = pointer.y - y1;
 
-    shape.set({
-        width: Math.abs(width),
-        height: Math.abs(height),
-        left: width < 0 ? pointer.x : x1,
-        top: height < 0 ? pointer.y : y1,
-    });
+    if (shapeType === "rectangle" || shapeType === "triangle") {
+
+        shape.set({
+            width: Math.abs(width),
+            height: Math.abs(height),
+            left: width < 0 ? pointer.x : x1,
+            top: height < 0 ? pointer.y : y1,
+        });
+    } else {
+        const rx = Math.abs(pointer.x - x1) / 2;
+        const ry = Math.abs(pointer.y - y1) / 2;
+
+        shape.set({
+            rx,
+            ry,
+            left: (pointer.x + x1) / 2,
+            top: (pointer.y + y1) / 2
+        });
+    }
 
     canvas.renderAll();
 })
@@ -99,10 +112,9 @@ canvas.on("mouse:up", function () {
 
 
 function drawShape(shapeType) {
-    console.log(shapeType);
+    const pos = canvas.getPointer()
 
     if (shapeType === "rectangle") {
-        const pos = canvas.getPointer()
         x1 = pos.x
         y1 = pos.y
         shape = new fabric.Rect({
@@ -119,7 +131,6 @@ function drawShape(shapeType) {
         })
 
     } else if (shapeType === "triangle") {
-        const pos = canvas.getPointer()
         x1 = pos.x
         y1 = pos.y
         shape = new fabric.Triangle({
@@ -134,6 +145,23 @@ function drawShape(shapeType) {
             cornerSize: 12,
             hasRotatingPoint: false
         })
+    } else if (shapeType === "circle") {
+
+        x1 = pos.x
+        y1 = pos.y
+
+        shape = new fabric.Ellipse({
+            left: x1,
+            top: y1,
+            originX: 'center',
+            originY: 'center',
+            rx: 1,
+            ry: 1,
+            stroke: 'red',
+            fill: 'transparent',
+            strokeWidth: 2,
+            selectable: false
+        });
     }
 
 
