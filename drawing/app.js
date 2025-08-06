@@ -32,12 +32,9 @@ for (let i = 0; i < iconsBtn.length; i++) {
             active = true;
             canvas.selection = false;
         } else {
-            console.log("do selection wala part over here");
             active = false;
             canvas.selection = true;
-
             const objectArr = canvas.getObjects();
-            console.log(objectArr);
 
             for (let j = 0; j < objectArr.length; j++) {
                 objectArr[j].selectable = true;
