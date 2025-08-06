@@ -9,18 +9,22 @@ const canvas = new fabric.Canvas(canvasElem, {
 const iconsBtn = document.querySelectorAll(".floating-div *")
 let prevSelectedElem = iconsBtn[0]
 let active = false;
+let selectedShape = "";
 
 for (let i = 0; i < iconsBtn.length; i++) {
     iconsBtn[i].addEventListener("click", function () {
         prevSelectedElem.classList.remove("active");
         iconsBtn[i].classList.add("active");
 
-        const shape = iconsBtn[i].getAttribute("shape")
-        console.log(shape);
+        selectedShape = iconsBtn[i].getAttribute("shape")
         canvas.discardActiveObject();
+        console.log(selectedShape);
 
-        if (shape === "rectangle") {
+        if (selectedShape === "rectangle") {
             // rectangle draw mode open
+            active = true;
+            canvas.selection = false;
+        } else if (selectedShape === "triangle") {
             active = true;
             canvas.selection = false;
         }
@@ -40,14 +44,26 @@ canvas.on("mouse:down", function (o) {
     startX = pointer.x;
     startY = pointer.y;
 
-    currShape = new fabric.Rect({
-        top: startY,
-        left: startX,
-        width: 1,
-        height: 1,
-        stroke: "white",
-        fill: "transparent",
-    })
+    if (selectedShape === "rectangle") {
+
+        currShape = new fabric.Rect({
+            top: startY,
+            left: startX,
+            width: 1,
+            height: 1,
+            stroke: "white",
+            fill: "transparent",
+        })
+    } else if (selectedShape === "triangle") {
+        currShape = new fabric.Triangle({
+            top: startY,
+            left: startX,
+            width: 1,
+            height: 1,
+            stroke: "white",
+            fill: "transparent",
+        })
+    }
 
     canvas.add(currShape)
 })
@@ -62,12 +78,14 @@ canvas.on("mouse:move", function (o) {
     const newWidth = x2 - startX;
     const newHeight = y2 - startY;
 
-    currShape.set({
-        left: newWidth < 0 ? x2 : startX,
-        top: newHeight < 0 ? y2 : startY,
-        width: Math.abs(newWidth),
-        height: Math.abs(newHeight)
-    })
+    if (selectedShape === "rectangle" || selectedShape === "triangle") {
+        currShape.set({
+            left: newWidth < 0 ? x2 : startX,
+            top: newHeight < 0 ? y2 : startY,
+            width: Math.abs(newWidth),
+            height: Math.abs(newHeight)
+        })
+    }
 
     canvas.renderAll();
 })
