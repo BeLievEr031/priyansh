@@ -166,7 +166,6 @@ function drawShape(shapeType) {
             stroke: 'red',
             fill: 'transparent',
             strokeWidth: 2,
-            selectable: false
         });
     }
 
