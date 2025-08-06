@@ -18,7 +18,11 @@ for (let i = 0; i < iconsBtn.length; i++) {
 
         selectedShape = iconsBtn[i].getAttribute("shape")
         canvas.discardActiveObject();
-        console.log(selectedShape);
+
+        canvas.getObjects().forEach(obj => {
+            obj.selectable = false;
+            obj.evented = false;
+        });
 
         if (selectedShape === "rectangle") {
             // rectangle draw mode open
@@ -27,8 +31,23 @@ for (let i = 0; i < iconsBtn.length; i++) {
         } else if (selectedShape === "triangle") {
             active = true;
             canvas.selection = false;
+        } else {
+            console.log("do selection wala part over here");
+            active = false;
+            canvas.selection = true;
+
+            const objectArr = canvas.getObjects();
+            console.log(objectArr);
+
+            for (let j = 0; j < objectArr.length; j++) {
+                objectArr[j].selectable = true;
+                objectArr[j].evented = true;
+                objectArr[j].setCoords();
+            }
+
         }
 
+        canvas.renderAll();
         prevSelectedElem = iconsBtn[i];
     });
 }
