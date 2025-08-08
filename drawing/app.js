@@ -109,3 +109,26 @@ canvas.on("mouse:move", function (o) {
 canvas.on("mouse:up", function () {
     currShape = null;
 })
+
+const colorBoxes = document.querySelectorAll(".colors > .box")
+const resultColor = document.querySelector("#selected-stroke")
+
+for (let i = 0; i < colorBoxes.length; i++) {
+    colorBoxes[i].addEventListener("click", function () {
+        const selectedColorStyle = window.getComputedStyle(colorBoxes[i])
+        resultColor.style.backgroundColor = selectedColorStyle.backgroundColor;
+
+        const selectedShape = canvas.getActiveObject()
+        // null,undefined ==> false
+
+        if (selectedShape !== undefined) {
+
+            selectedShape.set({
+                stroke: selectedColorStyle.backgroundColor,
+            })
+            canvas.renderAll()
+
+        }
+
+    })
+}

@@ -8,52 +8,8 @@
       rel="stylesheet"
     />
 
+    <link rel="stylesheet" href="style.css" />
     <title>Drawing</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        height: 100%;
-        width: 100%;
-      }
-
-      canvas {
-        /* background-color: #121212; */
-        user-select: none;
-      }
-
-      .floating-div {
-        position: absolute;
-        top: 25px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #232329;
-        z-index: 99999;
-        color: white;
-        gap: 2;
-        padding: 7px 10px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        border-radius: 10px;
-      }
-
-      .floating-div * {
-        cursor: pointer;
-        padding: 5px;
-        border-radius: 5px;
-        font-size: 20px;
-      }
-
-      .active {
-        background-color: #4dabf7;
-      }
-    </style>
   </head>
   <body>
     <div class="floating-div">
@@ -71,6 +27,22 @@
         stylus_note
       </span>
     </div>
+
+    <aside>
+      <div>
+        <p>Stroke</p>
+        <div class="colors">
+          <div class="box white"></div>
+          <div class="box red"></div>
+          <div class="box green"></div>
+          <div class="box lightblue"></div>
+          <div class="box orange"></div>
+          <div class="selected-stroke-div">
+            <div class="box white" id="selected-stroke"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
 
     <canvas></canvas>
     <script src="./fabric.js"></script>
