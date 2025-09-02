@@ -31,9 +31,18 @@ for (let i = 0; i < iconsBtn.length; i++) {
         } else if (selectedShape === "triangle") {
             active = true;
             canvas.selection = false;
-        } else {
+        } else if (selectedShape === "circle") {
+            active = true;
+            canvas.selection = false;
+        } else if (selectedShape === "pencil") {
+            canvas.isDrawingMode = true;
+            canvas.freeDrawingBrush.color = "white";
+
+        }
+        else {
             active = false;
             canvas.selection = true;
+            canvas.isDrawingMode = false;
             const objectArr = canvas.getObjects();
 
             for (let j = 0; j < objectArr.length; j++) {
@@ -60,6 +69,8 @@ canvas.on("mouse:down", function (o) {
     startX = pointer.x;
     startY = pointer.y;
 
+    console.log(selectedShape);
+
     if (selectedShape === "rectangle") {
 
         currShape = new fabric.Rect({
@@ -79,6 +90,21 @@ canvas.on("mouse:down", function (o) {
             stroke: "white",
             fill: "transparent",
         })
+    } else if (selectedShape === "circle") {
+        let x1 = pointer.x;
+        let y1 = pointer.y;
+
+        currShape = new fabric.Ellipse({
+            left: x1,
+            top: y1,
+            originX: 'center',
+            originY: 'center',
+            rx: 1,
+            ry: 1,
+            stroke: 'white',
+            fill: 'transparent',
+            strokeWidth: 2,
+        });
     }
 
     canvas.add(currShape)
@@ -101,6 +127,16 @@ canvas.on("mouse:move", function (o) {
             width: Math.abs(newWidth),
             height: Math.abs(newHeight)
         })
+    } else if (selectedShape === "circle") {
+        const rx = Math.abs(startX - x2) / 2;
+        const ry = Math.abs(startY - y2) / 2;
+
+        currShape.set({
+            rx,
+            ry,
+            left: (startX + x2) / 2,
+            top: (startY + y2) / 2
+        });
     }
 
     canvas.renderAll();
@@ -110,8 +146,27 @@ canvas.on("mouse:up", function () {
     currShape = null;
 })
 
-const colorBoxes = document.querySelectorAll(".colors > .box")
 const resultColor = document.querySelector("#selected-stroke")
+
+canvas.on("selection:created", function (event) {
+    // console.log("i am selected.", canvas.getActiveObject());
+    const selectedShape = canvas.getActiveObject();
+    console.log(selectedShape.stroke);
+    resultColor.style.backgroundColor = selectedShape.stroke
+
+})
+
+canvas.on("selection:updated", function (event) {
+    // console.log("i am update event.", canvas.getActiveObject());
+    const selectedShape = canvas.getActiveObject();
+    console.log(selectedShape.stroke);
+    resultColor.style.backgroundColor = selectedShape.stroke
+
+})
+
+
+const colorBoxes = document.querySelectorAll(".colors > .box")
+
 
 for (let i = 0; i < colorBoxes.length; i++) {
     colorBoxes[i].addEventListener("click", function () {
