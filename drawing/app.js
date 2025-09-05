@@ -165,7 +165,8 @@ canvas.on("selection:updated", function (event) {
 })
 
 
-const colorBoxes = document.querySelectorAll(".colors > .box")
+const colorBoxes = document.querySelectorAll(".colors-stroke > .box")
+const colorFillBoxes = document.querySelectorAll(".colors-fill > .box")
 
 
 for (let i = 0; i < colorBoxes.length; i++) {
@@ -183,6 +184,26 @@ for (let i = 0; i < colorBoxes.length; i++) {
             })
             canvas.renderAll()
 
+        }
+
+    })
+}
+
+
+const selectFillColor = document.querySelector("#selected-fill")
+
+for (let i = 0; i < colorFillBoxes.length; i++) {
+
+    colorFillBoxes[i].addEventListener("click", function () {
+        const selectedColorStyle = window.getComputedStyle(colorBoxes[i])
+        selectFillColor.style.backgroundColor = selectedColorStyle.backgroundColor;
+        const selectedShape = canvas.getActiveObject();
+
+        if (selectedShape !== undefined) {
+            selectedShape.set({
+                fill: selectedColorStyle.backgroundColor
+            })
+            canvas.renderAll();
         }
 
     })
